@@ -1,0 +1,74 @@
+Project Name: Comprehensive CRS Eligibility and Advisory System
+
+Project Overview:
+Build a full-stack web application that replicates and enhances a Canadian Comprehensive Ranking System (CRS) calculator. This tool must not only calculate a user’s CRS score based on official factors but also dynamically analyze current immigration policies and online data. It should provide personalized advice on:
+	•	Which province (e.g., Ontario, Alberta, or another) might be most advantageous based on the applicant’s history and recent policy trends.
+	•	How the user’s profile (including work experience, education, language proficiency, and NOC-coded work history) measures up to the most recent federal and provincial immigration requirements.
+	•	Additional recommendations (e.g., whether to obtain a provincial nomination, consider additional language testing, or modify employment plans) based on up‑to‑date online data.
+
+Core Functional Requirements:
+	1.	User Input & Data Collection:
+	•	Multi-Step Form:
+	•	Collect CRS-related inputs such as marital status, age, level of education, official language test scores (both primary and secondary if available), and detailed work experience (Canadian and foreign).
+	•	Gather free-text profile descriptions and employment history details that include National Occupational Classification (NOC) codes.
+	•	Include fields for additional points: nomination certificates, valid job offers, sibling in Canada, French language skills, etc.
+	•	Dynamic Updates:
+	•	Integrate functionality to periodically scrape or fetch the latest CRS criteria and immigration data (e.g., via public APIs or web scraping trusted government sources) so that the tool always reflects current rules.
+	2.	Backend & CRS Scoring Engine:
+	•	Scoring Calculation:
+	•	Implement the official CRS points calculation using all available factors (Core/Human Capital, Spouse, Skill Transferability, Additional Points).
+	•	Use weighted functions (e.g., age, education, language proficiency) as specified by the latest Government of Canada guidelines.
+	•	Profile Analysis Module:
+	•	Leverage an open-source AI model (e.g., a fine-tuned Hugging Face transformer like DistilBERT or GPT-2) to analyze the free-text profile.
+	•	Interpret the user’s work history including NOC codes, match it against official classification criteria, and extract insights about the applicant’s strengths and weaknesses.
+	•	Cross-reference data such as provincial nomination trends and employment market data from online sources.
+	3.	Advisory Engine:
+	•	Tailored Recommendations:
+	•	Based on the calculated CRS score and profile analysis, provide advice such as:
+	•	Whether the applicant might gain extra points by moving from a province like Ontario to one with more favorable immigration streams (e.g., Alberta or other provinces).
+	•	How to improve specific factors (e.g., additional language testing, pursuing further education or work experience in a specific NOC category).
+	•	Show side-by-side comparisons of provincial programs versus the federal pathway.
+	4.	Frontend Interface:
+	•	React-Based UI:
+	•	Create an intuitive, responsive multi-step form for data input.
+	•	Provide real-time validations and feedback.
+	•	Display the final CRS score, eligibility status, detailed breakdown of points, and AI-generated recommendations in a clear dashboard.
+	•	Data Visualization:
+	•	Incorporate charts or graphs (using libraries like Chart.js or D3.js) to illustrate the point breakdown and trends.
+	5.	Data Integration & Online Updates:
+	•	API/Web Scraping Module:
+	•	Implement a component that periodically retrieves the latest immigration rules, CRS point adjustments, and provincial program details from trusted online sources.
+	•	Ensure that the AI module and scoring engine can adjust its recommendations based on these updates.
+	6.	Code Structure and Quality:
+	•	Modular Design:
+	•	Separate the project into distinct modules/files (e.g., app.py for Flask backend, score_engine.py for CRS calculations, profile_analysis.py for AI analysis, and React components for the frontend).
+	•	Documentation and Comments:
+	•	Include clear inline comments and README documentation explaining how each part of the system works.
+	•	Error Handling and Security:
+	•	Validate and sanitize all user inputs.
+	•	Ensure robust error handling for both API calls and data processing.
+
+Output Expectations:
+	•	Backend Code:
+	•	A complete Flask (or FastAPI) application with an endpoint (e.g., /api/calculate) that accepts a JSON payload of all CRS inputs, processes the data through the scoring engine and AI analysis modules, and returns a JSON response with the total CRS score, detailed breakdown, and personalized advice.
+	•	Frontend Code:
+	•	A complete React application with components that render the multi-step form, handle user input, call the backend API, and display the results in an interactive dashboard.
+	•	Integration of Live Data:
+	•	Include sample code for fetching and updating current immigration requirements and provincial program details.
+	•	AI Advisory Component:
+	•	Provide code that loads an AI model (using Hugging Face’s Transformers library) and uses it to generate tailored advice based on both the CRS score and profile analysis.
+
+Additional Notes:
+	•	The tool should know and use the National Occupational Classification (NOC) codes for various jobs. It must cross-reference the applicant’s NOC information with the latest guidelines.
+	•	The application should be designed to be easily modifiable to accommodate changes in immigration policy.
+	•	Aim for a production-ready level of quality with clear structure, maintainability, and scalability.
+
+Final Deliverables:
+	•	Complete, runnable code for the backend (including CRS calculation, AI profile analysis, and online data integration).
+	•	Complete, runnable code for the frontend (React-based multi-step form and results dashboard).
+	•	Documentation that explains how to deploy and update the application.
+	•	Inline comments and instructions so that future developers can understand and modify the tool.
+
+End of Prompt.
+
+Please generate the entire project codebase along with comments and documentation so that this Comprehensive CRS Eligibility and Advisory System is fully functional and deployable.

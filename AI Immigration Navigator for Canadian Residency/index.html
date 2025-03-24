@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immigration Navigator</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --background: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--background);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .feature-card {
+            background-color: var(--card);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.375rem;
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description {
+            color: var(--text-secondary);
+        }
+        
+        .calculator {
+            background-color: var(--card);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 4rem;
+        }
+        
+        .calculator h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            background-color: white;
+            transition: border-color 0.2s;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .results {
+            display: none;
+            background-color: var(--card);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 4rem;
+        }
+        
+        .results h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-card {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .score-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-value {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+        
+        .score-max {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .breakdown-item {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-radius: 0.375rem;
+            padding: 1rem;
+        }
+        
+        .breakdown-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .breakdown-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .pathways {
+            margin-bottom: 2rem;
+        }
+        
+        .pathway-card {
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pathway-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .pathway-title {
+            font-weight: 600;
+        }
+        
+        .pathway-eligibility {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+        }
+        
+        .eligible {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .partial {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        
+        .ineligible {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        
+        .pathway-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .pathway-requirements {
+            font-size: 0.875rem;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .requirement-icon {
+            margin-right: 0.5rem;
+        }
+        
+        .requirement-met {
+            color: var(--success);
+        }
+        
+        .requirement-not-met {
+            color: var(--danger);
+        }
+        
+        .suggestions {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-radius: 0.375rem;
+            padding: 1.5rem;
+        }
+        
+        .suggestions h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--success);
+        }
+        
+        .suggestion-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        
+        .suggestion-icon {
+            margin-right: 0.5rem;
+            margin-top: 0.25rem;
+        }
+        
+        .chat {
+            display: none;
+            background-color: var(--card);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 4rem;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background-color: var(--background);
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            max-width: 80%;
+        }
+        
+        .message-user {
+            margin-left: auto;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 0.5rem 0 0.5rem 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+        
+        .message-assistant {
+            margin-right: auto;
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: 0 0.5rem 0.5rem 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+        
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .chat-send {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            padding: 0 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .chat-send:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .score-breakdown {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                </svg>
+                Immigration Navigator
+            </div>
+            <nav>
+                <a href="#calculator">Calculator</a>
+                <a href="#chat">Chat</a>
+                <a href="#about">About</a>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <h1>Your AI-powered guide to Canadian permanent residency</h1>
+            <p class="subtitle">Calculate your CRS score, discover the best immigration pathways, and get personalized recommendations to boost your chances.</p>
+            <div class="btn-group">
+                <a href="#calculator" class="btn btn-primary">Calculate Your Score</a>
+                <a href="#chat" class="btn btn-outline">Chat with AI Assistant</a>
+            </div>
+        </section>
+        
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                </div>
+                <h3 class="feature-title">CRS Score Calculator</h3>
+                <p class="feature-description">Calculate your Comprehensive Ranking System score based on official IRCC criteria.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                        <path d="M9 14l2 2 4-4"></path>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Pathway Recommendations</h3>
+                <p class="feature-description">Discover the top 5 immigration pathways tailored to your profile and qualifications.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="feature-title">AI Chat Assistant</h3>
+                <p class="feature-description">Get answers to your immigration questions from our intelligent assistant.</p>
+            </div>
+        </section>
+        
+        <section id="calculator" class="calculator">
+            <h2>CRS Score Calculator</h2>
+            <form id="crs-form">
+                <div class="form-group">
+                    <div class="form-label">Personal Information</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="age">Age</label>
+                            <input type="number" id="age" class="form-input" min="18" max="99" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="marital-status">Marital Status</label>
+                            <select id="marital-status" class="form-select" required>
+                                <option value="single">Single</option>
+                                <option value="married">Married or Common-Law</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-label">Education</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="education">Highest Level of Education</label>
+                            <select id="education" class="form-select" required>
+                                <option value="less-than-secondary">Less than secondary school</option>
+                                <option value="secondary">Secondary diploma</option>
+                                <option value="one-year">One-year degree, diploma or certificate</option>
+                                <option value="two-year">Two-year program</option>
+                                <option value="bachelors">Bachelor's degree</option>
+                                <option value="two-or-more">Two or more certificates, diplomas, or degrees. One must be for a program of three years or longer</option>
+                                <option value="masters">Master's degree</option>
+                                <option value="doctoral">Doctoral degree</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="canadian-education">Canadian Education</label>
+                            <select id="canadian-education" class="form-select" required>
+                                <option value="none">None</option>
+                                <option value="secondary">Secondary diploma</option>
+                                <option value="one-or-two-year">One or two-year diploma or certificate</option>
+                                <option value="three-year">Three years or longer degree, diploma or certificate</option>
+                                <option value="masters-or-doctoral">Master's or Doctoral degree</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-label">Language Proficiency</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="english-clb">English (CLB Level)</label>
+                            <select id="english-clb" class="form-select" required>
+                                <option value="less-than-4">Less than CLB 4</option>
+                                <option value="4">CLB 4</option>
+                                <option value="5">CLB 5</option>
+                                <option value="6">CLB 6</option>
+                                <option value="7">CLB 7</option>
+                                <option value="8">CLB 8</option>
+                                <option value="9">CLB 9</option>
+                                <option value="10-or-more">CLB 10 or higher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="french-nclc">French (NCLC Level)</label>
+                            <select id="french-nclc" class="form-select" required>
+                                <option value="none">None or less than NCLC 4</option>
+                                <option value="4">NCLC 4</option>
+                                <option value="5">NCLC 5</option>
+                                <option value="6">NCLC 6</option>
+                                <option value="7">NCLC 7</option>
+                                <option value="8">NCLC 8</option>
+                                <option value="9">NCLC 9 or higher</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-label">Work Experience</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="canadian-experience">Canadian Work Experience (years)</label>
+                            <select id="canadian-experience" class="form-select" required>
+                                <option value="none">None</option>
+                                <option value="1">1 year</option>
+                                <option value="2">2 years</option>
+                                <option value="3">3 years</option>
+                                <option value="4">4 years</option>
+                                <option value="5-or-more">5 years or more</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="foreign-experience">Foreign Work Experience (years)</label>
+                            <select id="foreign-experience" class="form-select" required>
+                                <option value="none">None</option>
+                                <option value="1">1 year</option>
+                                <option value="2">2 years</option>
+                                <option value="3">3 years or more</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-label">Additional Factors</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="provincial-nomination">Provincial Nomination</label>
+                            <select id="provincial-nomination" class="form-select" required>
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="job-offer">Valid Job Offer</label>
+                            <select id="job-offer" class="form-select" required>
+                                <option value="none">None</option>
+                                <option value="noc-00">NOC 00 (Senior Management)</option>
+                                <option value="other-noc">Other NOC 0, A, or B job</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="sibling-in-canada">Sibling in Canada (Citizen or PR)</label>
+                            <select id="sibling-in-canada" class="form-select" required>
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Calculate Score</button>
+            </form>
+        </section>
+        
+        <section id="results" class="results">
+            <h2>Your CRS Score Results</h2>
+            
+            <div class="score-card">
+                <div class="score-title">Your CRS Score</div>
+                <div id="total-score" class="score-value">0</div>
+                <div class="score-max">out of 1,200 points</div>
+            </div>
+            
+            <div class="score-breakdown">
+                <div class="breakdown-item">
+                    <div class="breakdown-title">Core/Human Capital</div>
+                    <div id="core-score" class="breakdown-value">0</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-title">Spouse Factors</div>
+                    <div id="spouse-score" class="breakdown-value">0</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-title">Skill Transferability</div>
+                    <div id="skill-score" class="breakdown-value">0</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-title">Additional Points</div>
+                    <div id="additional-score" class="breakdown-value">0</div>
+                </div>
+            </div>
+            
+            <h3>Latest Express Entry Draw</h3>
+            <p id="draw-comparison">The most recent Express Entry draw had a minimum CRS score of 491.</p>
+            
+            <h3>Top Immigration Pathways</h3>
+            <div id="pathways" class="pathways">
+                <!-- Pathways will be dynamically generated here -->
+            </div>
+            
+            <div class="suggestions">
+                <h3>How to Improve Your Score</h3>
+                <div id="suggestions-list">
+                    <!-- Suggestions will be dynamically generated here -->
+                </div>
+            </div>
+        </section>
+        
+        <section id="chat-section" class="chat">
+            <h2>Chat with Immigration Navigator AI</h2>
+            <div class="chat-messages">
+                <div class="message message-assistant">
+                    Hello! I'm your Immigration Navigator AI assistant. I can answer questions about your CRS score, immigration pathways, and provide guidance on improving your chances. How can I help you today?
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" placeholder="Type your message here...">
+                <button class="chat-send">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </section>
+        
+        <section id="about" class="calculator">
+            <h2>About Immigration Navigator</h2>
+            <p>Immigration Navigator is an AI-powered web application designed to help you navigate the complex process of Canadian permanent residency. Our tool provides accurate CRS score calculations, personalized pathway recommendations, and intelligent assistance through our AI chat feature.</p>
+            <p>We use the latest data from Immigration, Refugees and Citizenship Canada (IRCC) to ensure our calculations and recommendations are up-to-date and reliable.</p>
+            <p>This application currently focuses on Canadian permanent residency pathways, with plans to expand to other countries and permit types in the future.</p>
+        </section>
+        
+        <footer>
+            <p>© 2025 Immigration Navigator. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const crsForm = document.getElementById('crs-form');
+            const resultsSection = document.getElementById('results');
+            const totalScoreElement = document.getElementById('total-score');
+            const coreScoreElement = document.getElementById('core-score');
+            const spouseScoreElement = document.getElementById('spouse-score');
+            const skillScoreElement = document.getElementById('skill-score');
+            const additionalScoreElement = document.getElementById('additional-score');
+            const drawComparisonElement = document.getElementById('draw-comparison');
+            const pathwaysElement = document.getElementById('pathways');
+            const suggestionsListElement = document.getElementById('suggestions-list');
+            
+            // Latest Express Entry draw score (for comparison)
+            const latestDrawScore = 491;
+            
+            // CRS Score Calculator
+            function calculateCRSScore() {
+                // Get form values
+                const age = parseInt(document.getElementById('age').value);
+                const maritalStatus = document.getElementById('marital-status').value;
+                const education = document.getElementById('education').value;
+                const canadianEducation = document.getElementById('canadian-education').value;
+                const englishCLB = document.getElementById('english-clb').value;
+                const frenchNCLC = document.getElementById('french-nclc').value;
+                const canadianExperience = document.getElementById('canadian-experience').value;
+                const foreignExperience = document.getElementById('foreign-experience').value;
+                const provincialNomination = document.getElementById('provincial-nomination').value;
+                const jobOffer = document.getElementById('job-offer').value;
+                const siblingInCanada = document.getElementById('sibling-in-canada').value;
+                
+                // Calculate Core/Human Capital factors
+                let coreScore = calculateAgePoints(age, maritalStatus) + 
+                                calculateEducationPoints(education, maritalStatus) +
+                                calculateLanguagePoints(englishCLB, frenchNCLC, maritalStatus) +
+                                calculateCanadianExperiencePoints(canadianExperience, maritalStatus);
+                
+                // Calculate Spouse factors (if applicable)
+                let spouseScore = 0;
+                if (maritalStatus === 'married') {
+                    // In a real application, we would collect spouse information
+                    // For this demo, we'll assign a default value
+                    spouseScore = 40;
+                }
+                
+                // Calculate Skill Transferability factors
+                let skillScore = calculateSkillTransferabilityPoints(education, englishCLB, frenchNCLC, canadianExperience, foreignExperience);
+                
+                // Calculate Additional Points
+                let additionalScore = calculateAdditionalPoints(provincialNomination, canadianEducation, frenchNCLC, siblingInCanada, jobOffer);
+                
+                // Calculate total score
+                let totalScore = coreScore + spouseScore + skillScore + additionalScore;
+                
+                // Update the results display
+                totalScoreElement.textContent = totalScore;
+                coreScoreElement.textContent = coreScore;
+                spouseScoreElement.textContent = spouseScore;
+                skillScoreElement.textContent = skillScore;
+                additionalScoreElement.textContent = additionalScore;
+                
+                // Update draw comparison
+                const scoreDifference = totalScore - latestDrawScore;
+                if (scoreDifference >= 0) {
+                    drawComparisonElement.textContent = `The most recent Express Entry draw had a minimum CRS score of ${latestDrawScore}. Based on your score of ${totalScore}, you are ${scoreDifference} points above the latest cutoff.`;
+                } else {
+                    drawComparisonElement.textContent = `The most recent Express Entry draw had a minimum CRS score of ${latestDrawScore}. Based on your score of ${totalScore}, you are ${Math.abs(scoreDifference)} points below the latest cutoff.`;
+                }
+                
+                // Generate pathway recommendations
+                generatePathwayRecommendations(totalScore, age, education, englishCLB, canadianExperience, foreignExperience);
+                
+                // Generate improvement suggestions
+                generateImprovementSuggestions(totalScore, age, education, englishCLB, frenchNCLC, canadianExperience, provincialNomination, jobOffer);
+                
+                // Show results section
+                resultsSection.style.display = 'block';
+                
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Age points calculation
+            function calculateAgePoints(age, maritalStatus) {
+                if (maritalStatus === 'single') {
+                    if (age <= 17) return 0;
+                    if (age === 18) return 99;
+                    if (age === 19) return 105;
+                    if (age >= 20 && age <= 29) return 110;
+                    if (age === 30) return 105;
+                    if (age === 31) return 99;
+                    if (age === 32) return 94;
+                    if (age === 33) return 88;
+                    if (age === 34) return 83;
+                    if (age === 35) return 77;
+                    if (age === 36) return 72;
+                    if (age === 37) return 66;
+                    if (age === 38) return 61;
+                    if (age === 39) return 55;
+                    if (age === 40) return 50;
+                    if (age === 41) return 39;
+                    if (age === 42) return 28;
+                    if (age === 43) return 17;
+                    if (age === 44) return 6;
+                    if (age >= 45) return 0;
+                } else {
+                    if (age <= 17) return 0;
+                    if (age === 18) return 90;
+                    if (age === 19) return 95;
+                    if (age >= 20 && age <= 29) return 100;
+                    if (age === 30) return 95;
+                    if (age === 31) return 90;
+                    if (age === 32) return 85;
+                    if (age === 33) return 80;
+                    if (age === 34) return 75;
+                    if (age === 35) return 70;
+                    if (age === 36) return 65;
+                    if (age === 37) return 60;
+                    if (age === 38) return 55;
+                    if (age === 39) return 50;
+                    if (age === 40) return 45;
+                    if (age === 41) return 35;
+                    if (age === 42) return 25;
+                    if (age === 43) return 15;
+                    if (age === 44) return 5;
+                    if (age >= 45) return 0;
+                }
+            }
+            
+            // Education points calculation
+            function calculateEducationPoints(education, maritalStatus) {
+                if (maritalStatus === 'single') {
+                    switch (education) {
+                        case 'less-than-secondary': return 0;
+                        case 'secondary': return 30;
+                        case 'one-year': return 90;
+                        case 'two-year': return 98;
+                        case 'bachelors': return 120;
+                        case 'two-or-more': return 128;
+                        case 'masters': return 135;
+                        case 'doctoral': return 150;
+                        default: return 0;
+                    }
+                } else {
+                    switch (education) {
+                        case 'less-than-secondary': return 0;
+                        case 'secondary': return 28;
+                        case 'one-year': return 84;
+                        case 'two-year': return 91;
+                        case 'bachelors': return 112;
+                        case 'two-or-more': return 119;
+                        case 'masters': return 126;
+                        case 'doctoral': return 140;
+                        default: return 0;
+                    }
+                }
+            }
+            
+            // Language points calculation
+            function calculateLanguagePoints(englishCLB, frenchNCLC, maritalStatus) {
+                let points = 0;
+                
+                // English points
+                if (maritalStatus === 'single') {
+                    switch (englishCLB) {
+                        case 'less-than-4': points += 0; break;
+                        case '4': points += 6; break;
+                        case '5': points += 6; break;
+                        case '6': points += 9; break;
+                        case '7': points += 17; break;
+                        case '8': points += 23; break;
+                        case '9': points += 31; break;
+                        case '10-or-more': points += 34; break;
+                    }
+                } else {
+                    switch (englishCLB) {
+                        case 'less-than-4': points += 0; break;
+                        case '4': points += 6; break;
+                        case '5': points += 6; break;
+                        case '6': points += 8; break;
+                        case '7': points += 16; break;
+                        case '8': points += 22; break;
+                        case '9': points += 29; break;
+                        case '10-or-more': points += 32; break;
+                    }
+                }
+                
+                // French points (simplified)
+                if (frenchNCLC !== 'none') {
+                    points += 16;
+                }
+                
+                return points;
+            }
+            
+            // Canadian experience points calculation
+            function calculateCanadianExperiencePoints(canadianExperience, maritalStatus) {
+                if (maritalStatus === 'single') {
+                    switch (canadianExperience) {
+                        case 'none': return 0;
+                        case '1': return 40;
+                        case '2': return 53;
+                        case '3': return 64;
+                        case '4': return 72;
+                        case '5-or-more': return 80;
+                        default: return 0;
+                    }
+                } else {
+                    switch (canadianExperience) {
+                        case 'none': return 0;
+                        case '1': return 35;
+                        case '2': return 46;
+                        case '3': return 56;
+                        case '4': return 63;
+                        case '5-or-more': return 70;
+                        default: return 0;
+                    }
+                }
+            }
+            
+            // Skill transferability points calculation
+            function calculateSkillTransferabilityPoints(education, englishCLB, frenchNCLC, canadianExperience, foreignExperience) {
+                let points = 0;
+                
+                // Education + Language
+                if (education === 'bachelors' || education === 'masters' || education === 'doctoral') {
+                    if (englishCLB === '7' || englishCLB === '8') {
+                        points += 13;
+                    } else if (englishCLB === '9' || englishCLB === '10-or-more') {
+                        points += 25;
+                    }
+                }
+                
+                // Education + Canadian Experience
+                if (education === 'bachelors' || education === 'masters' || education === 'doctoral') {
+                    if (canadianExperience === '1' || canadianExperience === '2') {
+                        points += 13;
+                    } else if (canadianExperience === '3' || canadianExperience === '4' || canadianExperience === '5-or-more') {
+                        points += 25;
+                    }
+                }
+                
+                // Foreign Experience + Language
+                if (foreignExperience === '1' || foreignExperience === '2') {
+                    if (englishCLB === '7' || englishCLB === '8') {
+                        points += 13;
+                    } else if (englishCLB === '9' || englishCLB === '10-or-more') {
+                        points += 25;
+                    }
+                } else if (foreignExperience === '3') {
+                    if (englishCLB === '7' || englishCLB === '8') {
+                        points += 25;
+                    } else if (englishCLB === '9' || englishCLB === '10-or-more') {
+                        points += 50;
+                    }
+                }
+                
+                // Foreign Experience + Canadian Experience
+                if (foreignExperience === '1' || foreignExperience === '2') {
+                    if (canadianExperience === '1' || canadianExperience === '2') {
+                        points += 13;
+                    } else if (canadianExperience === '3' || canadianExperience === '4' || canadianExperience === '5-or-more') {
+                        points += 25;
+                    }
+                } else if (foreignExperience === '3') {
+                    if (canadianExperience === '1' || canadianExperience === '2') {
+                        points += 25;
+                    } else if (canadianExperience === '3' || canadianExperience === '4' || canadianExperience === '5-or-more') {
+                        points += 50;
+                    }
+                }
+                
+                // Cap at 100 points
+                return Math.min(points, 100);
+            }
+            
+            // Additional points calculation
+            function calculateAdditionalPoints(provincialNomination, canadianEducation, frenchNCLC, siblingInCanada, jobOffer) {
+                let points = 0;
+                
+                // Provincial Nomination
+                if (provincialNomination === 'yes') {
+                    points += 600;
+                }
+                
+                // Canadian Education
+                switch (canadianEducation) {
+                    case 'none': points += 0; break;
+                    case 'secondary': points += 0; break;
+                    case 'one-or-two-year': points += 15; break;
+                    case 'three-year': points += 30; break;
+                    case 'masters-or-doctoral': points += 30; break;
+                }
+                
+                // French language skills
+                if (frenchNCLC !== 'none') {
+                    points += 30;
+                }
+                
+                // Sibling in Canada
+                if (siblingInCanada === 'yes') {
+                    points += 15;
+                }
+                
+                // Job offer
+                switch (jobOffer) {
+                    case 'none': points += 0; break;
+                    case 'noc-00': points += 200; break;
+                    case 'other-noc': points += 50; break;
+                }
+                
+                return points;
+            }
+            
+            // Generate pathway recommendations
+            function generatePathwayRecommendations(totalScore, age, education, englishCLB, canadianExperience, foreignExperience) {
+                pathwaysElement.innerHTML = '';
+                
+                // Canadian Experience Class
+                const cecEligible = canadianExperience !== 'none' && 
+                                   (englishCLB === '7' || englishCLB === '8' || englishCLB === '9' || englishCLB === '10-or-more');
+                
+                const cecCard = document.createElement('div');
+                cecCard.className = 'pathway-card';
+                cecCard.innerHTML = `
+                    <div class="pathway-header">
+                        <div class="pathway-title">Canadian Experience Class (CEC)</div>
+                        <div class="pathway-eligibility ${cecEligible ? 'eligible' : 'ineligible'}">${cecEligible ? 'Eligible' : 'Ineligible'}</div>
+                    </div>
+                    <p class="pathway-description">For candidates with at least 1 year of skilled work experience in Canada within the last 3 years.</p>
+                    <div class="pathway-requirements">
+                        <div class="requirement">
+                            <span class="requirement-icon ${canadianExperience !== 'none' ? 'requirement-met' : 'requirement-not-met'}">${canadianExperience !== 'none' ? '✓' : '✗'}</span>
+                            <span>Canadian work experience: ${canadianExperience === 'none' ? 'None' : canadianExperience + ' year(s)'} (Required: 1 year)</span>
+                        </div>
+                        <div class="requirement">
+                            <span class="requirement-icon ${englishCLB === '7' || englishCLB === '8' || englishCLB === '9' || englishCLB === '10-or-more' ? 'requirement-met' : 'requirement-not-met'}">${englishCLB === '7' || englishCLB === '8' || englishCLB === '9' || englishCLB === '10-or-more' ? '✓' : '✗'}</span>
+                            <span>Language: ${englishCLB} (Required: CLB 7 for NOC 0 or A jobs)</span>
+                        </div>
+                    </div>
+                `;
+                pathwaysElement.appendChild(cecCard);
+                
+                // Federal Skilled Worker Program
+                const fswpEligible = (foreignExperience !== 'none' || canadianExperience !== 'none') && 
+                                    (englishCLB === '7' || englishCLB === '8' || englishCLB === '9' || englishCLB === '10-or-more') &&
+                                    (education === 'bachelors' || education === 'masters' || education === 'doctoral');
+                
+                const fswpPartial = (foreignExperience !== 'none' || canadianExperience !== 'none') && 
+                                   (englishCLB === '7' || englishCLB === '8' || englishCLB === '9' || englishCLB === '10-or-more');
+                
+                const fswpStatus = fswpEligible ? 'eligible' : (fswpPartial ? 'partial' : 'ineligible');
+                const fswpStatusText = fswpEligible ? 'Eligible' : (fswpPartial ? 'Partially Eligible' : 'Ineligible');
+                
+                const fswpCard = document.createElement('div');
+                fswpCard.className = 'pathway-card';
+                fswpCard.innerHTML = `
+                    <div class="pathway-header">
+                        <div class="pathway-title">Federal Skilled Worker Program (FSWP)</div>
+                        <div class="pathway-eligibility ${fswpStatus}">${fswpStatusText}</div>
+                    </div>
+                    <p class="pathway-description">For skilled workers with foreign work experience who want to immigrate to Canada permanently.</p>
+                    <div class="pathway-requirements">
+                        <div class="requirement">
+                            <span class="requirement-icon ${foreignExperience !== 'none' || canadianExperience !== 'none' ? 'requirement-met' : 'requirement-not-met'}">${foreignExperience !== 'none' || canadianExperience !== 'none' ? '✓' : '✗'}</span>
+                            <span>Work experience: ${foreignExperience === 'none' ? (canadianExperience === 'none' ? 'None' : canadianExperience + ' year(s) Canadian') : foreignExperience + ' year(s) foreign'} (Required: 1 year)</span>
+                        </div>
+                        <div class="requirement">
+                            <span class="requirement-icon ${englishCLB === '7' || englishCLB === '8' || englishCLB === '9' || englishCLB === '10-or-more' ? 'requirement-met' : 'requirement-not-met'}">${englishCLB === '7' || englishCLB === '8' || englishCLB === '9' || englishCLB === '10-or-more' ? '✓' : '✗'}</span>
+                            <span>Language: ${englishCLB} (Required: CLB 7)</span>
+                        </div>
+                        <div class="requirement">
+                            <span class="requirement-icon ${education === 'bachelors' || education === 'masters' || education === 'doctoral' ? 'requirement-met' : 'requirement-not-met'}">${education === 'bachelors' || education === 'masters' || education === 'doctoral' ? '✓' : '✗'}</span>
+                            <span>Education: ${education} (Required: ECA for foreign education)</span>
+                        </div>
+                    </div>
+                `;
+                pathwaysElement.appendChild(fswpCard);
+                
+                // Provincial Nominee Program (Ontario)
+                const oinpEligible = totalScore >= 400 && 
+                                    (education === 'bachelors' || education === 'masters' || education === 'doctoral') &&
+                                    (canadianExperience !== 'none' || foreignExperience !== 'none');
+                
+                const oinpCard = document.createElement('div');
+                oinpCard.className = 'pathway-card';
+                oinpCard.innerHTML = `
+                    <div class="pathway-header">
+                        <div class="pathway-title">Ontario Immigrant Nominee Program (OINP)</div>
+                        <div class="pathway-eligibility ${oinpEligible ? 'eligible' : 'ineligible'}">${oinpEligible ? 'Eligible' : 'Ineligible'}</div>
+                    </div>
+                    <p class="pathway-description">For skilled workers who want to live and work permanently in Ontario.</p>
+                    <div class="pathway-requirements">
+                        <div class="requirement">
+                            <span class="requirement-icon requirement-met">✓</span>
+                            <span>Express Entry profile: Yes (Required: Yes)</span>
+                        </div>
+                        <div class="requirement">
+                            <span class="requirement-icon ${education === 'bachelors' || education === 'masters' || education === 'doctoral' ? 'requirement-met' : 'requirement-not-met'}">${education === 'bachelors' || education === 'masters' || education === 'doctoral' ? '✓' : '✗'}</span>
+                            <span>Education: ${education} (Required: Post-secondary education)</span>
+                        </div>
+                        <div class="requirement">
+                            <span class="requirement-icon ${canadianExperience !== 'none' || foreignExperience !== 'none' ? 'requirement-met' : 'requirement-not-met'}">${canadianExperience !== 'none' || foreignExperience !== 'none' ? '✓' : '✗'}</span>
+                            <span>Work experience: ${canadianExperience !== 'none' ? canadianExperience + ' year(s) Canadian' : (foreignExperience !== 'none' ? foreignExperience + ' year(s) foreign' : 'None')} (Required: 1 year in skilled occupation)</span>
+                        </div>
+                    </div>
+                `;
+                pathwaysElement.appendChild(oinpCard);
+            }
+            
+            // Generate improvement suggestions
+            function generateImprovementSuggestions(totalScore, age, education, englishCLB, frenchNCLC, canadianExperience, provincialNomination, jobOffer) {
+                suggestionsListElement.innerHTML = '';
+                
+                // Language improvement suggestion
+                if (englishCLB !== '10-or-more') {
+                    const languageSuggestion = document.createElement('div');
+                    languageSuggestion.className = 'suggestion-item';
+                    languageSuggestion.innerHTML = `
+                        <span class="suggestion-icon">💡</span>
+                        <span>Improve your language scores to CLB 9 or higher in English to gain up to 24 additional points.</span>
+                    `;
+                    suggestionsListElement.appendChild(languageSuggestion);
+                }
+                
+                // Provincial nomination suggestion
+                if (provincialNomination === 'no') {
+                    const pnpSuggestion = document.createElement('div');
+                    pnpSuggestion.className = 'suggestion-item';
+                    pnpSuggestion.innerHTML = `
+                        <span class="suggestion-icon">💡</span>
+                        <span>Obtain a provincial nomination through one of the PNP streams to add 600 points to your score.</span>
+                    `;
+                    suggestionsListElement.appendChild(pnpSuggestion);
+                }
+                
+                // Canadian work experience suggestion
+                if (canadianExperience === 'none' || canadianExperience === '1') {
+                    const workSuggestion = document.createElement('div');
+                    workSuggestion.className = 'suggestion-item';
+                    workSuggestion.innerHTML = `
+                        <span class="suggestion-icon">💡</span>
+                        <span>Gain additional Canadian work experience to increase your score by up to 80 points.</span>
+                    `;
+                    suggestionsListElement.appendChild(workSuggestion);
+                }
+                
+                // French language suggestion
+                if (frenchNCLC === 'none') {
+                    const frenchSuggestion = document.createElement('div');
+                    frenchSuggestion.className = 'suggestion-item';
+                    frenchSuggestion.innerHTML = `
+                        <span class="suggestion-icon">💡</span>
+                        <span>Improve your French language skills to at least NCLC 7 to gain up to 50 additional points.</span>
+                    `;
+                    suggestionsListElement.appendChild(frenchSuggestion);
+                }
+                
+                // Job offer suggestion
+                if (jobOffer === 'none') {
+                    const jobSuggestion = document.createElement('div');
+                    jobSuggestion.className = 'suggestion-item';
+                    jobSuggestion.innerHTML = `
+                        <span class="suggestion-icon">💡</span>
+                        <span>Secure a valid job offer from a Canadian employer to gain up to 200 additional points.</span>
+                    `;
+                    suggestionsListElement.appendChild(jobSuggestion);
+                }
+            }
+            
+            // Form submission event
+            crsForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                calculateCRSScore();
+            });
+            
+            // Chat functionality
+            const chatInput = document.querySelector('.chat-input');
+            const chatSend = document.querySelector('.chat-send');
+            const chatMessages = document.querySelector('.chat-messages');
+            
+            function addMessage(content, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(isUser ? 'message-user' : 'message-assistant');
+                messageDiv.textContent = content;
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            function generateResponse(userMessage) {
+                const lowerCaseMessage = userMessage.toLowerCase();
+                
+                if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
+                    return "Hello! How can I help you with your immigration journey today?";
+                }
+                
+                if (lowerCaseMessage.includes('crs') || lowerCaseMessage.includes('score')) {
+                    return "Your CRS score is calculated based on factors like age, education, language proficiency, work experience, and additional factors. The current cutoff scores for Express Entry draws typically range from 450-500 for general draws. Would you like specific advice on improving your score?";
+                }
+                
+                if (lowerCaseMessage.includes('express entry')) {
+                    return "Express Entry is Canada's application management system for skilled immigrants. It uses the Comprehensive Ranking System (CRS) to rank candidates, and the highest-ranking candidates receive Invitations to Apply (ITAs) for permanent residence through regular draws.";
+                }
+                
+                if (lowerCaseMessage.includes('pnp') || lowerCaseMessage.includes('provincial')) {
+                    return "Provincial Nominee Programs (PNPs) allow Canadian provinces and territories to nominate individuals who wish to immigrate to Canada and who are interested in settling in a particular province. A provincial nomination adds 600 points to your CRS score.";
+                }
+                
+                if (lowerCaseMessage.includes('language') || lowerCaseMessage.includes('ielts') || lowerCaseMessage.includes('celpip')) {
+                    return "Language proficiency is one of the most important factors in the CRS score calculation. You can earn up to 136 points for your first official language and up to 24 points for your second official language. Canada accepts IELTS and CELPIP for English, and TEF and TCF for French.";
+                }
+                
+                if (lowerCaseMessage.includes('thank')) {
+                    return "You're welcome! If you have any other questions about Canadian immigration, feel free to ask. Good luck with your immigration journey!";
+                }
+                
+                return "I'm here to help with your Canadian immigration questions. You can ask me about CRS scores, Express Entry, Provincial Nominee Programs, language requirements, or any other aspect of the immigration process.";
+            }
+            
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    chatInput.value = '';
+                    
+                    // Simulate AI response delay
+                    setTimeout(function() {
+                        const response = generateResponse(message);
+                        addMessage(response, false);
+                    }, 1000);
+                }
+            }
+            
+            chatSend.addEventListener('click', sendMessage);
+            
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
